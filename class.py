@@ -29,6 +29,21 @@ print(person2.gender)
 person2.talks("OOP is just too easy")
 
 
+class Animal:
+    def _init_(self,name,type):
+        self.name = name
+        self.type = type
+
+    def make_sound(self):
+        print(f"(self.name) makes some sound")
+
+
+class Dog(Animal):
+    def __init__(self,name,type,age):
+        super().__init__(name,type)
+        self.age = age
+
+
 
 
 

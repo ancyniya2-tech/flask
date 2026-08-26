@@ -1,5 +1,12 @@
+from datetime import datetime
+
+today=datetime.today()
+print(today)
+
+
+
 class BankAccount:
-    def __init__(self, account_number, balance, owner_name, date_opened):
+    def __init__(self, account_number, balance, owner_name, date_opened=today):
         self.account_number = account_number
         self.balance = balance
         self.owner_name = owner_name
@@ -28,14 +35,14 @@ class BankAccount:
 
 
 
-account1 = BankAccount("001234",5000,"Ancy Niya","25 August 2026")
+account1 = BankAccount("001234",5000,"Ancy Niya")
 account1.deposit(2000)
 account1.withdraw(1000)
 account1.display_info()
 
 print("--------------------------------------------------")
 
-account2 = BankAccount("005678",10000,"Jane Doe","25 August 2026")
+account2 = BankAccount("005678",10000,"Jane Doe")
 account2.deposit(2000)
 account2.withdraw(2000)
 account2.display_info()
