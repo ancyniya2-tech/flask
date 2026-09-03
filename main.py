@@ -1,4 +1,7 @@
 from flask import Flask , render_template
+from database import get_products
+from database import get_sales
+from database import get_stock
 
 app = Flask(__name__)
 
@@ -9,17 +12,18 @@ def home():
 
 @app.route('/products')
 def products():
-    products=['Laptop','Mouse','Keyboard','Monitor']
-    return render_template('products.html', y=products)
+    products= get_products()
+    return render_template('products.html', products = products)
 
 @app.route('/sales')
 def sales():
-    num=12
-    return render_template('sales.html', num=num)
+    sales= get_sales()
+    return render_template('sales.html', sales = sales)
 
 @app.route('/stock')
 def stock():
-    return render_template('stock.html')
+    stock = get_stock()
+    return render_template('stock.html', stock=stock)
 
 @app.route('/dashboard')
 def dashboard():

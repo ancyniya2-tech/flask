@@ -4,7 +4,36 @@
 <div>
     <p>This is the products page </p>
 
-    {{ y }}
+    {{ products}}
+
+
+    <div class="container mt-5">
+
+        <h1>Products</h1>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product id</th>
+                    <th>Product</th>
+                    <th>Buying price</th>
+                    <th>Selling price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product[0] }}</td>
+                    <td>{{ product[1] }}</td>
+                    <td>Ksh {{ product[2] }}</td>
+                    <td>Ksh {{ product[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 
 </div>
 {% endblock %}

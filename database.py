@@ -13,36 +13,19 @@ def get_products():
     cur.execute("insert into products(name,buying_price,selling_price)values(%s,%s,%s)",product_values)
     conn.commit()
 
-#product1=('Shirt',1200,1800)
-#product2=('Book',1500,2000)
-
-
-#insert_products(product1)
-#insert_products(product2)
-
-
-#products = get_products()
-#print(products)
 
 
 
-#def get_sales():
+def get_sales():
     cur.execute("SELECT * FROM sales")
     sales = cur.fetchall()
     return sales
 
 
-#def insert_sales(sales_values):
+def insert_sales(sales_values):
     cur.execute("insert into sales(pid,quantity)values(%s,%s)",sales_values)
     conn.commit()
 
-#sale1 = (1,20)
-#sale2 = (2,10)
-#insert_sales(sale1)
-#insert_sales(sale2)
-
-#sales= get_sales()
-#print(sales)
 
 
 def get_stock():
@@ -55,11 +38,6 @@ def insert_stock(stock_values):
     cur.execute("insert into stock(pid,stock_quantity)values(%s,%s)",stock_values)
     conn.commit()
 
-stock1 = (1, 100)
-stock2 = (2, 50)
-
-insert_stock(stock1)
-insert_stock(stock2)
 
 stock_data = get_stock()
 print(stock_data)
