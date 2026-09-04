@@ -5,5 +5,26 @@
     <p>This is the sales page</p>
 
   {{ sales}}
+  <div>
+    <table id="example" class="display">
+		<thead>
+			<tr>
+				<th>Sales id</th>
+				<th>PID</th>
+				<th>Quantity</th>
+				<th>Created At</th>
+		</thead>
+		<tbody>
+      {% for sale in sales %}
+			<tr>
+				<td> {{sale[0]}}</td>
+        <td> {{sale[1]}}</td>
+        <td> {{sale[2]}}</td>
+        <td> {{sale[3]}}</td>
+			</tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
 </div>
 {% endblock %}
