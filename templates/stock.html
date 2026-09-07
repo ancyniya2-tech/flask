@@ -5,6 +5,33 @@
     <p>This is the stock page</p>
 
     {{ stock}}
+    
+    <div class="container mt-5">
 
+        <h1>Products</h1>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Stock id</th>
+                    <th>PID</th>
+                    <th>Stock_quantity</th>
+                    <th>created at</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for stock in stock %}
+                <tr>
+                    <td>{{ stock [0] }}</td>
+                    <td>{{ stock [1] }}</td>
+                    <td>{{ stock [2] }}</td>
+                    <td>{{ stock [3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 </div>
 {% endblock %}
