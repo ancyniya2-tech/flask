@@ -15,6 +15,13 @@ def products():
     products= get_products()
     return render_template('products.html', products = products)
 
+@app.route('/add_products',methods=['GET','POST'])
+def add_products():
+    if request.method == 'POST': 
+        product_name = request.form['p_name']
+        buying_price = request.form['b_price']
+        selling_price = request.form['s_price']
+        
 @app.route('/sales')
 def sales():
     sales= get_sales()

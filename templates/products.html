@@ -6,6 +6,23 @@
 
     {{ products}}
 
+    <div>
+        <form method="post" action="/add_products">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Product name</label>
+    <input type="text" name="p_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Buying price</label>
+    <input type="number" name="b_price" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Selling price</label>
+    <input type="number" name="s_price" class="form-control" id="exampleInputPassword1">
+  </div>
+  <button type="submit" class="btn btn-primary">Add product</button>
+</form>
+    </div>
+
 
    
     <div class="container mt-5">
