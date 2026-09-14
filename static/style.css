@@ -11,6 +11,7 @@
     justify-content: center;
     list-style: none;
     gap: 30px;
+    
 }
 
 .nav{
@@ -29,6 +30,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #fff7fb;
     color: #5a4a55;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero {
@@ -223,6 +231,7 @@ body {
 }
 
 footer {
+    margin-top: 30px;
     background-color: #3a2433;
     color: #f8dceb;
     padding: 50px 0;
@@ -248,3 +257,53 @@ footer h4 {
 
 }
 
+.wrapper{
+    box-sizing: border-box;
+    width: 400px;
+    padding: 2rem 1rem;
+    margin: 50px auto;
+    background-color: #ee13a5;
+    text-align: center;
+     box-shadow: 0 10px 30px rgba(90, 74, 85, 0.08);
+    border-radius: 15px;
+}
+
+h1{
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+}
+
+
+form input {
+    width: 92%;
+    outline: none;
+    border: 1px solid white;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background-color: #e95db8;
+}
+
+button{
+    font-size: 1rem;
+    margin-top: 1.8rem;
+    padding: 10px 0;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    width: 90%;
+    color: white;
+    cursor: pointer;
+    background-color: #eb65be;
+}
+
+button:hover{
+    background-color: #b8176d;
+}
+
+form p{
+    font-family: 'Times New Roman', Times, serif;
+    color: rgb(36, 34, 34);
+    text-align: left;
+
+}

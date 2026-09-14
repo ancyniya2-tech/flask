@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<div>
-    <p>This is the register page</p>
-
-
+<div class="wrapper">
+    <h1>Sign up</h1>
+    <form action="">
+        <p>Username</p>
+        <input type="text" placeholder="Username">
+        <p>Full Name</p>
+        <input type="text" placeholder="Full Name">
+        <p>Email</p>
+        <input type="Email" placeholder="Email">
+        <p>Passoword</p>
+        <input type="password" placeholder="Passoword">
+        <input type="password" placeholder=" Re-Enter Passoword">
+    </form>
+    <div class="terms">
+        <input type="checkbox" id="checkbox">
+        <label for="checkbox">I agree to these
+            <a href="">Terms and conditions</a>
+        </label>
+    </div>
+    <button type="submit">Sign Up</button>
+    <div class="member">
+        Already a member? <a href=".login.html">
+            Login Here
+        </a>
+    </div>
 
 </div>
+
+
 {% endblock %}

@@ -9,7 +9,7 @@ def get_products():
     products = cur.fetchall()
     return products
 
-#def insert_products(product_values):
+def insert_products(product_values):
     cur.execute("insert into products(name,buying_price,selling_price)values(%s,%s,%s)",product_values)
     conn.commit()
 
@@ -39,8 +39,6 @@ def insert_stock(stock_values):
     conn.commit()
 
 
-stock_data = get_stock()
-print(stock_data)
 
 #sales per day
 #SELECT date(sales.created_at) as day, sum(products.selling_price * sales.quantity) FROM sales inner join products on sales.pid = products.id group by day;
@@ -65,3 +63,16 @@ def get_profits_per_product():
     profits_per_product = cur.fetchall()
     return profits_per_product
 
+
+import random
+
+lower="abcdefghijklmnopqrstuvwxyz"
+upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+numbers = "0123456789"
+symbols="!@#$%^&*():;'"
+all=lower+upper+symbols
+
+def generate_password():
+    length = 16
+    password = "".join(random.sample(all, length))
+    return password

@@ -56,10 +56,24 @@
       </nav>
     </div>
 
-    {% block content %}
-    
+    <div>
+           {% with messages = get_flashed_messages(with_categories= true) %}
+           {% if messages %}
+           {% for category,message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                        {{ message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+           {% endfor %}
+            {% endif %}
+           {% endwith %}
+                  </div>
 
-    {% endblock %}
+    <main class="main-content">
+        {% block content %}
+        
+        {% endblock %}
+    </main>
     <footer>
         <div class="container text-center">
             <h4>Sokonest</h4>
@@ -94,6 +108,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
     integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
   <script>
     new DataTable('#example');

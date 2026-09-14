@@ -3,11 +3,8 @@
 {% block content %}
 <div>
     <p>This is the products page </p>
-
-    {{ products}}
-
     <div>
-        <form method="post" action="/add_products">
+        <form method="POST" action="/add_products">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Product name</label>
     <input type="text" name="p_name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
