@@ -3,17 +3,17 @@
 {% block content %}
 <div class="wrapper">
     <h1>Sign up</h1>
-    <form action="">
-        <p>Username</p>
-        <input type="text" placeholder="Username">
+    <form action="/register" method="post">
         <p>Full Name</p>
-        <input type="text" placeholder="Full Name">
+        <input type="text" placeholder="full_Name">
         <p>Email</p>
         <input type="Email" placeholder="Email">
+        <p>Phone number</p>
+        <input type="Number" placeholder="Phone_number">
         <p>Passoword</p>
         <input type="password" placeholder="Passoword">
         <input type="password" placeholder=" Re-Enter Passoword">
-    </form>
+  
     <div class="terms">
         <input type="checkbox" id="checkbox">
         <label for="checkbox">I agree to these
@@ -26,6 +26,7 @@
             Login Here
         </a>
     </div>
+      </form>
 
 </div>
 

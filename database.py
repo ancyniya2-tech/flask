@@ -60,19 +60,27 @@ def get_profits_per_product():
         SELECT products.name, sum(products.selling_price - products.buying_price * sales.quantity) as total_profit FROM 
         products inner join sales on products.id = sales.pid group by products.name;
 """)
-    profits_per_product = cur.fetchall()
+    profits_per_product = cur.fetchall()  
     return profits_per_product
 
 
-import random
+def available_stock(pid):
+    cur.execute("select sum(stock.stock_quantity) from stock where pid = %s",(pid,))
+    total_stock = cur.fetchone()[0] or 0
 
-lower="abcdefghijklmnopqrstuvwxyz"
-upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-numbers = "0123456789"
-symbols="!@#$%^&*():;'"
-all=lower+upper+symbols
+    cur.execute("select sum(sales.quantity) from sales where pid = %s",(pid,))
+    total_sold = cur.fetchone()[0] or 0
 
-def generate_password():
-    length = 16
-    password = "".join(random.sample(all, length))
-    return password
+    return total_stock - total_sold
+
+check_stock  = available_stock(1)
+print(check_stock)
+
+def check_user_esist(email):
+    cur.execute("select * from user where users.email = %s,"(email,))
+    user = cur.fetchone()
+    return user
+
+def insert_user(user_details):
+    cur.execute["insert into users(full_name,email,phone_number,password)values(%s,%s,%s,%s)",user_details]
+    conn.commit
