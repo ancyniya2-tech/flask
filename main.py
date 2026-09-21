@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from database import get_products, insert_stock, insert_products, get_sales, get_stock, insert_sales, available_stock,check_user_exists,insert_user
+from flask import Flask, render_template, request, redirect, url_for, flash,session
+from database import get_products, insert_stock, insert_products, get_sales, get_stock, insert_sales, available_stock,check_user_exists,insert_user,get_sales_per_day, get_profits_per_product,get_sales_per_product,get_profits_per_day
 from flask_bcrypt import Bcrypt
+from functools import wraps
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 
 app.secret_key = 'yuewhjfjsyugsjvjfs'
 
@@ -12,8 +14,16 @@ def home():
     name = "Ancy Niya"
     return render_template('index.html', x=name)
 
+def login_required(f):
+    @wraps(f)
+    def protected(*args,**kwargs):
+        if 'email' not in session:
+            return redirect(url_for('login'))
+        return f(*args,**kwargs)
+    return protected
 
 @app.route('/products')
+@login_required
 def products():
     products = get_products()
     return render_template('products.html', products=products)
@@ -34,6 +44,7 @@ def add_products():
 
 
 @app.route('/sales')
+@login_required
 def sales():
     sales = get_sales()
     products = get_products()
@@ -62,6 +73,7 @@ def make_sale():
 
 
 @app.route('/stock')
+@login_required
 def stock():
     stock = get_stock()
     products = get_products()
@@ -82,29 +94,64 @@ def add_stock():
 
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    sales_per_product = get_sales_per_product()
+    profit_per_products = get_profits_per_product()
 
+    sales_per_day = get_sales_per_day()
+    profits_per_day = get_profits_per_day()
 
-@app.route('/login')
+    product_names=[i[0] for i in sales_per_product]
+    product_sales=[i[0] for i in sales_per_product]
+    product_profit=[i[0] for i in profits_per_day]
+
+    dates = [i[0] for i in sales_per_day]
+    daily_sales=[i[0] for i in sales_per_day]
+    daily_profits=[i[0] for i in profits_per_day]
+
+    return render_template('dashboard.html',
+        product_names=product_names, product_sales=product_sales, product_profit=product_profit,
+        dates=dates, daily_sales=daily_sales, daily_profits=daily_profits
+     )
+@app.route('/login',methods=['GET','POST'])
 def login():
+    if request.method=='POST':
+        email=request.form['email']
+        password = request.form['password']
+
+        existing_user = check_user_exists(email)
+        if not existing_user:
+            flash("User with this email not registered","danger")
+            return redirect(url_for('login'))
+
+        check_password = bcrypt.check_password_hash(existing_user[-1],password)
+
+        if check_password:
+            session['email'] = email
+            flash("Login successful",'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash("Incorrect password,try again",'danger')
+            return redirect(url_for('login'))
+
     return render_template('login.html')
 
 
-@app.route('/register', method=['GET','POST'])
+@app.route('/register', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
 
         full_name = request.form['full_name']
-        email = request.form['Email']
-        phone_number = request.form['Phone number']
-        password = request.form['Password']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        password = request.form['password']
 
         existing_user=check_user_exists(email)
         if existing_user:
             flash("User with this email already exists,Login instead","danger")
             return(redirect(url_for('register')))
-        hashed_password = bcrypt.generate_password_hash(password).decode('uft-8')
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         new_user = (full_name,email,phone_number,hashed_password)
         insert_user(new_user)
@@ -112,6 +159,13 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('email',None)
+    flash("Logged out successfully",'success')
+    return redirect(url_for('login'))
+
 
 
 app.run(debug=True)
