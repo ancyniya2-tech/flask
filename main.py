@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash,session
-from database import get_products, insert_stock, insert_products, get_sales, get_stock, insert_sales, available_stock,check_user_exists,insert_user,get_sales_per_day, get_profits_per_product,get_sales_per_product,get_profits_per_day
+from database import get_products, insert_stock, insert_products, get_sales, get_stock, insert_sales, available_stock,check_user_exists,insert_user,get_sales_per_day,get_profits_per_product,get_sales_per_product,get_profits_per_day
 from flask_bcrypt import Bcrypt
 from functools import wraps
 
@@ -97,23 +97,26 @@ def add_stock():
 @login_required
 def dashboard():
     sales_per_product = get_sales_per_product()
-    profit_per_products = get_profits_per_product()
+    profit_per_product = get_profits_per_product()
 
     sales_per_day = get_sales_per_day()
-    profits_per_day = get_profits_per_day()
+    profit_per_day = get_profits_per_day()
 
-    product_names=[i[0] for i in sales_per_product]
-    product_sales=[i[0] for i in sales_per_product]
-    product_profit=[i[0] for i in profits_per_day]
+    product_names = [i[0] for i in sales_per_product]
+    product_sales = [ float(i[1]) for i in sales_per_product]
+    product_profit = [ float(i[1]) for i in profit_per_product]
 
-    dates = [i[0] for i in sales_per_day]
-    daily_sales=[i[0] for i in sales_per_day]
-    daily_profits=[i[0] for i in profits_per_day]
-
+    dates = [ str(i[0]) for i in sales_per_day]
+    daily_sales = [ float(i[1]) for i in sales_per_day]
+    daily_profit = [ float(i[1]) for i in profit_per_day]
+   
     return render_template('dashboard.html',
         product_names=product_names, product_sales=product_sales, product_profit=product_profit,
-        dates=dates, daily_sales=daily_sales, daily_profits=daily_profits
-     )
+        dates=dates, daily_sales=daily_sales, daily_profit=daily_profit
+    )
+
+
+
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method=='POST':

@@ -63,6 +63,24 @@ def get_profits_per_product():
     profits_per_product = cur.fetchall()  
     return profits_per_product
 
+def get_sales_per_product():
+    cur.execute("""
+        SELECT products.name, SUM(sales.quantity) FROM products JOIN sales ON products.id = sales.pid GROUP BY products.name;
+    """)
+
+    sales = cur.fetchall()
+    return sales
+
+
+def get_profits_per_day():
+    cur.execute("""
+        SELECT sales.created_at, SUM((products.selling_price - products.buying_price) * sales.quantity) FROM sales JOIN products  ON products.id = sales.pid GROUP BY sales.created_at
+        ORDER BY sales.created_at;
+    """)
+
+    profits = cur.fetchall()
+    return profits
+
 
 def available_stock(pid):
     cur.execute("select sum(stock.stock_quantity) from stock where pid = %s",(pid,))
@@ -83,4 +101,4 @@ def check_user_exists(email):
 
 def insert_user(user_details):
     cur.execute("INSERT INTO users(full_name,email,phone_number,password)VALUES(%s,%s,%s,%s)",user_details)
-    conn.commit
+    conn.commit()
